@@ -2,10 +2,16 @@
 // @ts-check
 'use strict'
 
-const path = require('path')
+const pathImport = require('path')
 const debug = require('debug')('cypress-failed-log')
 
 // check built-in module against missing methods
+let path = pathImport
+
+if (typeof pathImport !== 'function' && pathImport.hasOwnProperty('default')) {
+  path = pathImport['default']
+}
+
 if (typeof path.basename !== 'function') {
   throw new Error('path.basename should be a function')
 }
